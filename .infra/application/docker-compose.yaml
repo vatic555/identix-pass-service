@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  nest-js-graphql-api:
+    container_name: 'nest-js-graphql-api'
+    image: 'nest-js-graphql-postgres'
+    hostname: nest-js-graphql-api
+    networks:
+      - app-local-net
+    volumes:
+      - ../../.env:/usr/src/app/.env
+    environment:
+      - HTTP_PORT=${BACKEND_HTTP_API_PORT}
+    ports:
+      - "9000:3000"
+    command: [ "yarn", "start" ]
+
+
+networks:
+  app-local-net:
+    external: false
+    driver: bridge
+    name: app-local-net

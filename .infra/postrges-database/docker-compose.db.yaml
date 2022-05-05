@@ -1,0 +1,45 @@
+version: '3.8'
+services:
+  postgres:
+    container_name: 'postgres'
+    image: 'postgres:12.5-alpine'
+    hostname: postgres
+    environment:
+      - POSTGRES_PASSWORD=password
+      - PGDATA=/data/postgres
+      - POSTGRES_DB=demo-db
+      - POSTGRES_USER=user
+    networks:
+      - app-local-net
+    volumes:
+      - ./init-data/postgres-initialization.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init-data/init:/docker-entrypoint-initdb.d/init
+      - postgres:/data/postgres
+    ports:
+      - '5432:5432'
+
+  pgadmin:
+    container_name: 'pgadmin'
+    image: 'dpage/pgadmin4'
+    hostname: pgadmin
+    depends_on:
+      - 'postgres'
+    networks:
+      - app-local-net
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pg@admin.org
+      - PGADMIN_DEFAULT_PASSWORD=p@ssword
+    volumes:
+      - pgadmin:/root/.pgadmin
+    ports:
+      - '8000:80'
+
+volumes:
+  postgres:
+  pgadmin:
+
+networks:
+  app-local-net:
+    external: false
+    driver: bridge
+    name: app-local-net

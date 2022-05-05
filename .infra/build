@@ -1,0 +1,38 @@
+#! /bin/bash
+
+help() {
+      echo -e "\n Usage:  build [<IMAGE_NAME>] [<ROOT_DIR>]"
+      echo "      <OPERAND> - optional image name, default: nest-js-graphql-postgres "
+      echo "      <ROOT_DIR> - optional root path of project"
+      echo ""
+      exit 1
+}
+
+if [[ "${1}" == "--help" ]]; then
+   help
+fi
+
+imageName=nest-js-graphql-postgres
+if [[ ! -z "$1" ]]; then
+  imageName=$1
+fi
+
+rootDir=$(cd .. && pwd)
+if [[ ! -z "$2" ]]; then
+  rootDir=$2
+fi
+
+echo " --> IMAGE_NAME: ${imageName}"
+echo " --> ROOT_DIR: ${rootDir}"
+echo ""
+while true; do
+  read -p " Check <IMAGE_NAME> and <ROOT_DIR> environment. Is it true? [Y/N]:  " yn
+    case $yn in
+        [Yy]* ) break;;
+        [Nn]* ) echo -e "\n Please set true IMAGE_NAME and ROOT_DIR"; help;;
+        * ) echo -e "\n Please answer yes [Y] or no [N].";;
+    esac
+done
+
+( cd ${rootDir}/src &&  docker build -t ${imageName} . )
+

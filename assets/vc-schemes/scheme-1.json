@@ -1,0 +1,12 @@
+{
+  "did": "did:ever:state-id-fd5das7hdh3h455t",
+  "key": "STATE_ID",
+  "description": "VC State ID scheme",
+  "scheme": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/product.schema.json",
+    "title": "Product",
+    "description": "A product in the catalog",
+    "type": "object"
+  }
+}

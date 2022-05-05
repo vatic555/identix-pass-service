@@ -1,0 +1,12 @@
+{
+  "did": "did:ever:proof-of-residency-jd4345hwd8383d33d",
+  "key": "PROOF_OF_RESIDENCY",
+  "description": "VC Proof Of Residency scheme",
+  "scheme": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/product.schema.json",
+    "title": "Product",
+    "description": "A product in the catalog",
+    "type": "object"
+  }
+}

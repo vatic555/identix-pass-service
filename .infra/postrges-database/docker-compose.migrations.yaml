@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  db-run-migrations:
+    container_name: 'nest-js-graphql-postgres-db-run-migrations'
+    image: 'nest-js-graphql-postgres'
+    hostname: db-run-migrations
+    networks:
+      - app-local-net
+    volumes:
+      -  ../../.env:/usr/src/app/.env
+    command: [ "yarn", "typeorm:run" ]
+
+networks:
+  app-local-net:
+    external: false
+    driver: bridge
+    name: app-local-net
